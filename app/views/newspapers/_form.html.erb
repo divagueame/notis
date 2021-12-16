@@ -1,32 +1,39 @@
-<%= form_with(model: newspaper) do |form| %>
-  <% if newspaper.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(newspaper.errors.count, "error") %> prohibited this newspaper from being saved:</h2>
 
-      <ul>
-        <% newspaper.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :newspaperName %>
+<%= form_with model: newspaper do |form| %>
+  <div>
+    <%= form.label :newspaperName %><br>
     <%= form.text_field :newspaperName %>
+    <% newspaper.errors.full_messages_for(:newspaperName).each do |message| %>
+    <div><%= message %></div>
+    <% end %>
   </div>
 
-  <div class="field">
-    <%= form.label :newspaperUrl %>
+    <div>
+    <%= form.label :newspaperUrl %><br>
     <%= form.text_field :newspaperUrl %>
+    <% newspaper.errors.full_messages_for(:newspaperUrl).each do |message| %>
+    <div><%= message %></div>
+    <% end %>
   </div>
 
-  <div class="field">
-    <%= form.label :newspaperCssSelector %>
+    <div>
+    <%= form.label :newspaperCssSelector %><br>
     <%= form.text_field :newspaperCssSelector %>
+    <% newspaper.errors.full_messages_for(:newspaperCssSelector).each do |message| %>
+    <div><%= message %>
   </div>
-
-  <div class="actions">
+    <% end %>
+    
+    <div>
+    <%= form.label :newspaperArticleUrlAppend %><br>
+    <%= form.text_field :newspaperArticleUrlAppend %>
+    <% newspaper.errors.full_messages_for(:newspaperArticleUrlAppend).each do |message| %>
+    <div><%= message %></div>
+    <% end %>
+  </div>
+ 
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
+

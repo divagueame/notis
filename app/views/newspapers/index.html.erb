@@ -1,31 +1,15 @@
-<p id="notice"><%= notice %></p>
+<h1>Newspapers#index</h1>
+<p>Find me in app/views/newspapers/index.html.erb</p>
 
-<h1>Newspapers</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Newspapername</th>
-      <th>Newspaperurl</th>
-      <th>Newspapercssselector</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<h1>Articles</h1>
 
-  <tbody>
-    <% @newspapers.each do |newspaper| %>
-      <tr>
-        <td><%= newspaper.newspaperName %></td>
-        <td><%= newspaper.newspaperUrl %></td>
-        <td><%= newspaper.newspaperCssSelector %></td>
-        <td><%= link_to 'Show', newspaper %></td>
-        <td><%= link_to 'Edit', edit_newspaper_path(newspaper) %></td>
-        <td><%= link_to 'Destroy', newspaper, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<ul>
+  <% @newspapers.each do |newspaper| %>
+    <li>
+      <%= link_to newspaper.newspaperName, newspaper %>
+    </li>
+  <% end %>
+</ul>
 
-<br>
-
-<%= link_to 'New Newspaper', new_newspaper_path %>
+<%= link_to "Add new newspaper", new_newspaper_path %>

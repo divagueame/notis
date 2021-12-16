@@ -8,54 +8,64 @@ class NewspapersController < ApplicationController
 
   # GET /newspapers/1 or /newspapers/1.json
   def show
+    @newspaper = Newspaper.find(params[:id])
   end
 
   # GET /newspapers/new
   def new
     @newspaper = Newspaper.new
   end
+ 
 
-  # GET /newspapers/1/edit
-  def edit
-  end
-
-  # POST /newspapers or /newspapers.json
   def create
     @newspaper = Newspaper.new(newspaper_params)
 
-    respond_to do |format|
-      if @newspaper.save
-        format.html { redirect_to @newspaper, notice: "Newspaper was successfully created." }
-        format.json { render :show, status: :created, location: @newspaper }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @newspaper.errors, status: :unprocessable_entity }
-      end
+    if @newspaper.save
+      redirect_to @newspaper
+    else
+      render :new
     end
   end
 
-  # PATCH/PUT /newspapers/1 or /newspapers/1.json
+  def edit
+    @newspaper = Newspaper.find(params[:id])
+  end
+
   def update
-    respond_to do |format|
-      if @newspaper.update(newspaper_params)
-        format.html { redirect_to @newspaper, notice: "Newspaper was successfully updated." }
-        format.json { render :show, status: :ok, location: @newspaper }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @newspaper.errors, status: :unprocessable_entity }
-      end
+    @newspaper = Newspaper.find(params[:id])
+
+    if @newspaper.update(newspaper_params)
+      redirect_to @newspaper
+    else
+      render :edit
     end
   end
 
-  # DELETE /newspapers/1 or /newspapers/1.json
   def destroy
+    @newspaper = Newspaper.find(params[:id])
     @newspaper.destroy
-    respond_to do |format|
-      format.html { redirect_to newspapers_url, notice: "Newspaper was successfully destroyed." }
-      format.json { head :no_content }
-    end
+
+    redirect_to root_path
   end
 
+  def crawl  
+ 
+      Newspaper.all.each do |newspaper|
+        thisUrl = newspaper.newspaperUrl 
+        html = URI.open("#{thisUrl}").read 
+        header = Nokogiri::HTML(html)  
+        headers = header.css(newspaper.newspaperCssSelector)
+        urlAppend =  headers[0].attribute('href').value
+        retrievedArticleHeadline = headers[0].content; 
+        retrievedArticleUrl = thisUrl + urlAppend 
+      @article = Article.new(headline: retrievedArticleHeadline, url: retrievedArticleUrl, newspaper_id: newspaper.id)
+      # p @article.valid?
+      if(@article.save)then p "Article saved!" else p "Article not saved. It's already in the db!" end 
+       
+    end
+ 
+
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_newspaper
@@ -67,3 +77,5 @@ class NewspapersController < ApplicationController
       params.require(:newspaper).permit(:newspaperName, :newspaperUrl, :newspaperCssSelector)
     end
 end
+
+

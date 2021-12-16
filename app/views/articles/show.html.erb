@@ -1,0 +1,18 @@
+<h1>Ultimas noticias</h1> 
+<div class="article-wrapper">
+<% Article.all.each do |article| %> 
+<div class="article-item">
+    <a href="<%= article.url %>" target="_blank">
+      <h2 class="article-headline">
+        <%= article.headline %>
+      </h2>
+    </a> 
+    <div>
+      Fuente:
+      <% source = article.newspaper_id %>
+      
+      <%= Newspaper.find(source).newspaperName %> 
+    </div>
+  </div>
+<% end %>
+</div>

@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  root 'newspapers#index'
-  resources :newspapers
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root "articles#show"
+  get 'crawl', action: :crawl, controller: 'newspapers'
+  resources :newspapers do
+
+    resources :articles
+  end
 end

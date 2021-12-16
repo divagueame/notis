@@ -1,19 +1,48 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Newspapername:</strong>
-  <%= @newspaper.newspaperName %>
-</p>
 
-<p>
-  <strong>Newspaperurl:</strong>
-  <%= @newspaper.newspaperUrl %>
-</p>
+<br><br><br><br>
+<%= @newspaper.id %><br>
+<%= @newspaper.newspaperName %><br>
+<%= @newspaper.newspaperUrl %><br>
+<%= @newspaper.newspaperCssSelector %><br>
+<%= @newspaper.newspaperArticleUrlAppend %><br>
 
-<p>
-  <strong>Newspapercssselector:</strong>
-  <%= @newspaper.newspaperCssSelector %>
-</p>
+<ul>
+  <li><%= link_to "Edit", edit_newspaper_path(@newspaper) %></li>
+    <li><%= link_to "Destroy", newspaper_path(@newspaper),
+                  method: :delete,
+                  data: { confirm: "Are you sure?" } %></li>
+</ul>
 
-<%= link_to 'Edit', edit_newspaper_path(@newspaper) %> |
-<%= link_to 'Back', newspapers_path %>
+
+<h2>Articles</h2>
+<% @newspaper.articles.each do |article| %>
+  <p>
+    <strong>Url: </strong>
+    <%= article.url %>
+  </p>
+
+  <p>
+    <strong>Headline:</strong>
+    <%= article.headline %>
+  </p>
+<% end %>
+
+
+
+
+<h2>Add a comment:</h2>
+<%= form_with model: [ @newspaper, @newspaper.articles.build ] do |form| %>
+  <p>
+    <%= form.label :headline %><br>
+    <%= form.text_field :headline %>
+  </p>
+  <p>
+    <%= form.label :url %><br>
+    <%= form.text_field :url %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+
+<% end %>
