@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Newspapername:</strong>
+  <%= @newspaper.newspaperName %>
+</p>
+
+<p>
+  <strong>Newspaperurl:</strong>
+  <%= @newspaper.newspaperUrl %>
+</p>
+
+<p>
+  <strong>Newspapercssselector:</strong>
+  <%= @newspaper.newspaperCssSelector %>
+</p>
+
+<%= link_to 'Edit', edit_newspaper_path(@newspaper) %> |
+<%= link_to 'Back', newspapers_path %>

@@ -1,0 +1,32 @@
+<%= form_with(model: newspaper) do |form| %>
+  <% if newspaper.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(newspaper.errors.count, "error") %> prohibited this newspaper from being saved:</h2>
+
+      <ul>
+        <% newspaper.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :newspaperName %>
+    <%= form.text_field :newspaperName %>
+  </div>
+
+  <div class="field">
+    <%= form.label :newspaperUrl %>
+    <%= form.text_field :newspaperUrl %>
+  </div>
+
+  <div class="field">
+    <%= form.label :newspaperCssSelector %>
+    <%= form.text_field :newspaperCssSelector %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
