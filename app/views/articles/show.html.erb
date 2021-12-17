@@ -1,4 +1,4 @@
-<h1>Ultimas noticias</h1>
+<h1>Últimas noticias</h1>
 <div class="article-wrapper">
 <% Article.all.each do |article| %> 
 <div class="article-item">
@@ -11,7 +11,10 @@
       Fuente:
       <% source = article.newspaper_id %>
       
-      <%= Newspaper.find(source).newspaperName %> 
+      <a href='<%= Newspaper.find(source).newspaperUrl %>'>
+        <%= Newspaper.find(source).newspaperName %> 
+      </a>
+      
     </div>
   </div>
 <% end %>

@@ -1,5 +1,5 @@
 class NewspapersController < ApplicationController
-  before_action :set_newspaper, only: %i[ show edit update destroy ]
+  before_action :set_newspaper, only: %i[show edit update destroy]
 
   # GET /newspapers or /newspapers.json
   def index
@@ -15,9 +15,9 @@ class NewspapersController < ApplicationController
   def new
     @newspaper = Newspaper.new
   end
- 
 
   def create
+     p 'Create! '
     @newspaper = Newspaper.new(newspaper_params)
 
     if @newspaper.save
@@ -48,37 +48,38 @@ class NewspapersController < ApplicationController
     redirect_to root_path
   end
 
-  def crawl  
-    p 'crawl'
+  def crawl
+    Newspaper.all.each do |newspaper|
+      p ' This newspaper uses relative url'
+      p newspaper.newspaperName
+      p newspaper.newspaperUrlRelative
+      thisUrl = newspaper.newspaperUrl
+      html = URI.open(thisUrl.to_s).read
+      header = Nokogiri::HTML(html)
+      headers = header.css(newspaper.newspaperCssSelector)
+      aValue = headers[0].attribute('href').value
+      retrievedArticleHeadline = headers[0].content
+      if newspaper.newspaperUrlRelative
+        retrievedArticleUrl = thisUrl + aValue
+      else
+        retrievedArticleUrl = aValue
+      end
 
-      Newspaper.all.each do |newspaper|
 
-        thisUrl = newspaper.newspaperUrl 
-        p thisUrl
-        html = URI.open("#{thisUrl}").read 
-        header = Nokogiri::HTML(html)  
-        headers = header.css(newspaper.newspaperCssSelector)
-        urlAppend =  headers[0].attribute('href').value
-        retrievedArticleHeadline = headers[0].content; 
-        retrievedArticleUrl = thisUrl + urlAppend 
       @article = Article.new(headline: retrievedArticleHeadline, url: retrievedArticleUrl, newspaper_id: newspaper.id)
-      # p @article.valid?
-      if(@article.save)then p "Article saved!" else p "Article not saved. It's already in the db!" end 
-       
+      @article.save ? (p 'Article saved!') : (p "Article not saved. It's already in the db!")
     end
- 
-
   end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_newspaper
-      @newspaper = Newspaper.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def newspaper_params
-      params.require(:newspaper).permit(:newspaperName, :newspaperUrl, :newspaperCssSelector)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_newspaper
+    @newspaper = Newspaper.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def newspaper_params
+    params.require(:newspaper).permit(:newspaperName, :newspaperUrl, :newspaperCssSelector, :newspaperUrlRelative)
+  end
 end
-
-

@@ -17,14 +17,26 @@
   </div>
 
     <div>
-    <%= form.label :newspaperCssSelector %><br>
-    <%= form.text_field :newspaperCssSelector %>
-    <% newspaper.errors.full_messages_for(:newspaperCssSelector).each do |message| %>
-    <div><%= message %>
-  </div>
-    <% end %>
-  
- 
+      <%= form.label :newspaperCssSelector %><br>
+      <%= form.text_field :newspaperCssSelector %>
+      <% newspaper.errors.full_messages_for(:newspaperCssSelector).each do |message| %>
+      <div>
+        <%= message %>
+      </div>
+      <% end %>
+    </div>
+
+
+    <div>
+      <%= form.check_box :newspaperUrlRelative %>
+      <%= form.label :newspaperUrlRelative, "Relative Url?" %>
+      <% newspaper.errors.full_messages_for(:newspaperUrlRelative).each do |message| %>
+        <div>
+          <%= message %>
+        </div>
+      <% end %>
+    </div>
+    
   <div>
     <%= form.submit %>
   </div>
