@@ -49,9 +49,12 @@ class NewspapersController < ApplicationController
   end
 
   def crawl  
- 
+    p 'crawl'
+
       Newspaper.all.each do |newspaper|
+
         thisUrl = newspaper.newspaperUrl 
+        p thisUrl
         html = URI.open("#{thisUrl}").read 
         header = Nokogiri::HTML(html)  
         headers = header.css(newspaper.newspaperCssSelector)
