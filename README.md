@@ -1,24 +1,17 @@
 # README
+Project:
+  Mis Notis
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Author: 
+  Martin Arce
 
-Things you may want to cover:
+Characteristics:
+  News webscraper
 
-* Ruby version
+Built with:
+  Ruby '3.0.2'
+  Ruby on Railsrails '6.1.4.3'
+  Nokogiri
+  PostgreSQL
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Deployed on Heroku
