@@ -2,11 +2,49 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 h1 {
-  margin: 0 auto;
+  margin: 3rem auto;
   width: 100%;
-  padding-top: 4%;
   text-align: center;
+  position: relative;
 }
+h1::before,
+h1::after {
+  content: '';
+  position: absolute; 
+  border-bottom: .1rem solid black; 
+  left: 0;
+  top: calc(50% + .2rem) ;
+  width: 10%;
+}
+h1::after {
+  left:unset;
+  right: 0;
+}
+@media (min-width: 468px) {
+  h1::before,
+  h1::after {
+    width: 20%;
+  }
+}
+@media (min-width: 780px) {
+  h1::before,
+  h1::after {
+    width: 30%;
+  }
+}
+@media (min-width: 1020px) {
+  h1::before,
+  h1::after {
+    width: 35%;
+  }
+}
+@media (min-width: 1320px) {
+  h1::before,
+  h1::after {
+    width: 40%;
+  }
+}
+
 .article-wrapper {
   // width: 60%;
   margin: 0 auto;
@@ -21,10 +59,7 @@ h1 {
 background-color: rgb(201, 201, 201);
 color: rgb(114, 0, 0);
 padding: 1.4rem
-}
-.article-headline {
-//  background-color: brown;
-}
+} 
 
 @media (min-width: 468px) {
   .article-wrapper {
