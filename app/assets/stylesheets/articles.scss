@@ -20,7 +20,18 @@
    margin: 0;
    padding: 0;
  }
- a {
+ .article-item:hover {
+   background-color: rgb(223, 189, 189);
+ }
+ .article-headline:hover {
+   background-color: rgb(215, 221, 160);
+ }
+ .article-item a {
   color: black;
   text-decoration: none; /* no underline */
+  font-weight: 500;
+}
+
+.article-item .article-source a:hover {
+  text-decoration: underline;
 }
