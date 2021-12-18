@@ -19,19 +19,35 @@
    font-family: 'Playfair Display', serif;
    margin: 0;
    padding: 0;
+   box-sizing: border-box;
  }
- .article-item:hover {
-   background-color: rgb(223, 189, 189);
+
+ .article-item {
+  position: relative;
+ } 
+ .article-item-border {
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: -3px;
+   width: 3px;
+   border-radius: 15px;
  }
- .article-headline:hover {
-   background-color: rgb(215, 221, 160);
- }
+
+ .article-headline a:hover .article-item-border {
+  background-color: rgb(0, 0, 0);
+}
+ 
  .article-item a {
   color: black;
   text-decoration: none; /* no underline */
-  font-weight: 500;
-}
 
+}
+.article-item a:hover{
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
 .article-item .article-source a:hover {
   text-decoration: underline;
+  font-weight: 400;
 }
