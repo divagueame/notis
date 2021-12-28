@@ -3,6 +3,7 @@ class NewspapersController < ApplicationController
 
   # GET /newspapers or /newspapers.json
   def index
+    p 'INDEX VISITED'
     @newspapers = Newspaper.all
   end
 
@@ -49,7 +50,8 @@ class NewspapersController < ApplicationController
   end
 
   def crawl
-    while 1 == 1 do
+    p Time.now
+    @newspapers = Newspaper.all
       Newspaper.all.each do |newspaper|
         thisUrl = newspaper.newspaperUrl
         html = URI.open(thisUrl.to_s).read
@@ -65,13 +67,8 @@ class NewspapersController < ApplicationController
 
         @article = Article.new(headline: retrievedArticleHeadline, url: retrievedArticleUrl, newspaper_id: newspaper.id)
         @article.save ? (p 'Article saved!') : (p 'Article not saved. Its already in the db!')
-      end
-      p "And wait... One hour..."
-      sleep 60 * 60
     end
 
-
-    
   end
 
   private
