@@ -3,8 +3,9 @@ class NewspapersController < ApplicationController
 
   # GET /newspapers or /newspapers.json
   def index
-    p 'INDEX VISITED'
+    
     @newspapers = Newspaper.all
+    
   end
 
   # GET /newspapers/1 or /newspapers/1.json
@@ -50,6 +51,7 @@ class NewspapersController < ApplicationController
   end
 
   def crawl
+    p "BUG! In newspaper controller Crawl was called!"
     p Time.now
     @newspapers = Newspaper.all
       Newspaper.all.each do |newspaper|
