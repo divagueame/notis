@@ -49,26 +49,29 @@ class NewspapersController < ApplicationController
   end
 
   def crawl
-    Newspaper.all.each do |newspaper|
-      p ' This newspaper uses relative url'
-      p newspaper.newspaperName
-      p newspaper.newspaperUrlRelative
-      thisUrl = newspaper.newspaperUrl
-      html = URI.open(thisUrl.to_s).read
-      header = Nokogiri::HTML(html)
-      headers = header.css(newspaper.newspaperCssSelector)
-      aValue = headers[0].attribute('href').value
-      retrievedArticleHeadline = headers[0].content
-      if newspaper.newspaperUrlRelative
-        retrievedArticleUrl = thisUrl + aValue
-      else
-        retrievedArticleUrl = aValue
+    while 1 == 1 do
+      Newspaper.all.each do |newspaper|
+        thisUrl = newspaper.newspaperUrl
+        html = URI.open(thisUrl.to_s).read
+        header = Nokogiri::HTML(html)
+        headers = header.css(newspaper.newspaperCssSelector)
+        aValue = headers[0].attribute('href').value
+        retrievedArticleHeadline = headers[0].content
+        if newspaper.newspaperUrlRelative
+          retrievedArticleUrl = thisUrl + aValue
+        else
+          retrievedArticleUrl = aValue
+        end
+
+        @article = Article.new(headline: retrievedArticleHeadline, url: retrievedArticleUrl, newspaper_id: newspaper.id)
+        @article.save ? (p 'Article saved!') : (p 'Article not saved. Its already in the db!')
       end
-
-
-      @article = Article.new(headline: retrievedArticleHeadline, url: retrievedArticleUrl, newspaper_id: newspaper.id)
-      @article.save ? (p 'Article saved!') : (p "Article not saved. It's already in the db!")
+      p "And wait... One hour..."
+      sleep 60 * 60
     end
+
+
+    
   end
 
   private

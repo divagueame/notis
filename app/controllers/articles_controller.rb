@@ -1,11 +1,13 @@
 class ArticlesController < ApplicationController
   def show
-    p "Show"
-    p Article.all
-    
-    # @newspaper = Newspaper.find(params[:newspaper_id])
-    # @article = @newspaper.articles.create(article_params)
-    
+    showDay = Time.now - params[:date].to_i.day
+    @articles = []
+    Article.find_each do |article|
+      if article.created_at.strftime("%F") == showDay.strftime("%F") then
+        @articles.push article
+      end
+    end
+      
   end
 
   def create
