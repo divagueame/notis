@@ -1,8 +1,10 @@
 class ApplicationController < ActionController::Base
   def index
     p "Aplication index"
-    params
+    p params
     showDay = Time.now - params[:date].to_i.day
+    p 'SHOW DAY IS: '
+    p showDay
     @articles = []
     Article.find_each do |article|
       if article.created_at.strftime("%F") == showDay.strftime("%F") then
@@ -10,10 +12,8 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    num = rand(1..4)
-    p "Num is..."
-    p num
-    if(num==1) then crawl end
+    crawl
+
     
   end
 
@@ -22,8 +22,15 @@ class ApplicationController < ActionController::Base
   private
   
   def crawl
-    p "Private crawl"
-    p Time.now
+    # p "Private crawl"
+    # p Time.now
+
+    num = rand(1..4)
+    # p "Save 1 out of 4"
+    # p num
+    return if num != 1
+
+
     @newspapers = Newspaper.all
       Newspaper.all.each do |newspaper|
         thisUrl = newspaper.newspaperUrl

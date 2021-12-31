@@ -1,9 +1,9 @@
 <h1>Últimas noticias</h1>
-<div class="article-wrapper">
-
 <%# <h3>Show more</h3> %>
 <%# <%= link_to 'Ad details', newspaper_article_path %>
 
+
+<div class="article-wrapper">
 <% @articles.each do |article| %>  
 
 <div class="article-item">
@@ -14,10 +14,10 @@
         </a> 
       </h2>
 
-    <div class="article-source">          <%= article.created_at.strftime("%F") %>
+    <div class="article-source">
+    <%= article.created_at.strftime("%F") %>
       Fuente:
-      <% source = article.newspaper_id %>
-      
+      <% source = article.newspaper_id %>  
       <a href='<%= Newspaper.find(source).newspaperUrl %>'>
         <%= Newspaper.find(source).newspaperName %> 
       </a>
@@ -26,3 +26,8 @@
   </div>
 <% end %>
 </div>
+
+  <%= link_to :root do %>
+    <%= svg('arrow1', class: 'day-before') %>  
+    <h2 class="">Ayer</h2>  
+  <% end %>

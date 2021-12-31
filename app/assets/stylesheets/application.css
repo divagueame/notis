@@ -13,3 +13,6 @@
  *= require_tree .
  *= require_self
  */
+ .day-before {
+  max-width: 4rem;
+ }
