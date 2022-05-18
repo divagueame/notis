@@ -1,7 +1,4 @@
 <h1>Últimas noticias</h1>
-<%# <h3>Show more</h3> %>
-<%# <%= link_to 'Ad details', newspaper_article_path %>
-
 
 <div class="article-wrapper">
 <% @articles.each do |article| %>  
@@ -26,8 +23,3 @@
   </div>
 <% end %>
 </div>
-
-  <%= link_to :root do %>
-    <%= svg('arrow1', class: 'day-before') %>  
-    <h2 class="">Ayer</h2>  
-  <% end %>
