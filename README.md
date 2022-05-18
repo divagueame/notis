@@ -14,4 +14,4 @@ Built with:
   Nokogiri
   PostgreSQL
 
-Deployed on Heroku
+Deployed on Heroku on December 2021
